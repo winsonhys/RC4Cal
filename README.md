@@ -6,8 +6,4 @@ This project aims to aid RC4 in the management of facilities booking. This is pr
 
 ## Getting started
 
-After pulling, type yarn install to obtain files for dependencies.
-
-```
-yarn install
-```
+After pulling, type `yarn install` to obtain files for dependencies.
