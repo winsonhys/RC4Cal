@@ -7,3 +7,8 @@ This project aims to aid RC4 in the management of facilities booking. This is pr
 ## Getting started
 
 After pulling, type `yarn install` to obtain files for dependencies.
+
+## Debugging
+
+Go to http://remotedev.io/local/ for react dev tools when loaded.
+Inline implementation in the near future.
