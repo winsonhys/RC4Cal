@@ -1,5 +1,6 @@
-import { createStore, combineReducers, applyMiddleWare } from "redux";
-import thunk from "thunk";
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import devTools from "remote-redux-devtools";
 import LogInPageReducer from "./logInPage/redux";
 
 const reducer = combineReducers({
@@ -7,7 +8,12 @@ const reducer = combineReducers({
 });
 
 const configureStore = () => {
-  const store = createStore(reducer, applyMiddleWare(thunk));
+  const store = createStore(
+    reducer,
+    {},
+    compose(applyMiddleware(thunk), devTools())
+  );
+  return store;
 };
 
-export default store;
+export default configureStore;

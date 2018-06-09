@@ -35,9 +35,11 @@ const usernameUpdateError = error => ({
   error
 });
 
-const updateUsername = username => {
+export const updateUsername = username => {
   return dispatch => {
-    dispatch(usernameUpdateLoading);
+    dispatch(usernameUpdateLoading());
     dispatch(usernameUpdateSuccess(username));
   };
 };
+
+export default reducer;

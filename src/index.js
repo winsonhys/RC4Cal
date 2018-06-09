@@ -8,7 +8,7 @@ import SomeRandomPage from "./logInPage";
 import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store()}>
     <SomeRandomPage />
   </Provider>,
   document.getElementById("root")
