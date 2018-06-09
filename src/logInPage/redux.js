@@ -4,7 +4,7 @@ const USERNAME_UPDATE_FAILURE = "USERNAME_UPDATE_FAILURE";
 
 const initialState = {
   userNameLoading: false,
-  userName: "",
+  userName: "Nihao",
   error: null
 };
 
@@ -19,4 +19,25 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+const usernameUpdateLoading = () => ({
+  type: USERNAME_UPDATE_LOADING
+});
+
+const usernameUpdateSuccess = username => ({
+  type: USERNAME_UPDATE_SUCCESS,
+  payload: username
+});
+
+const usernameUpdateError = error => ({
+  type: USERNAME_UPDATE_FAILURE,
+  error
+});
+
+const updateUsername = username => {
+  return dispatch => {
+    dispatch(usernameUpdateLoading);
+    dispatch(usernameUpdateSuccess(username));
+  };
 };
