@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
-
+//TODO: ALLOW PEOPLE TO ACTUALLY EDIT EVENTS
 class EditEvent extends Component {
   render() {
     const { history, deleteEvent } = this.props;
     const { id } = history.location.state;
-    console.log(id);
     return (
       <div className="editEvent">
         <Button

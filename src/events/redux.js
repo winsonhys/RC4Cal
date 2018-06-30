@@ -59,7 +59,7 @@ export default (state = initialState, action) => {
         ...state,
         updating: false,
         events: _.remove(state.events, event => {
-          return event.id === deletedEventId;
+          return !(event.id === deletedEventId);
         })
       };
     }
@@ -137,7 +137,7 @@ export const deleteEvent = id => {
     dispatch(deletingEvent());
     try {
       const deletedEventId = await deleteUserEvent(id);
-      dispatch(deletingEventSuccess(id));
+      dispatch(deletingEventSuccess(deletedEventId));
     } catch (e) {
       dispatch(deletingEventError(e));
     }

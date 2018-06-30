@@ -23,11 +23,11 @@ export const create = async (title, start, end, userId) => {
     .then(r => r.data);
 };
 
-export const destroy = async eventId => {
+export const destroy = async id => {
   const api = await axiosInstance();
   return api
     .delete("./events", {
-      id: eventId
+      params: { id: id }
     })
     .then(r => r.data);
 };
