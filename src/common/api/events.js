@@ -24,7 +24,6 @@ export const create = async (title, start, end, userId) => {
 };
 
 export const destroy = async id => {
-  console.log(id);
   const api = await axiosInstance();
   return api
     .delete("./events", {

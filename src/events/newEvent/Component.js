@@ -46,7 +46,6 @@ class NewEventScreen extends Component {
       getFieldsValue
     } = this.props.form;
     const { start } = this.props.history.location.state;
-    console.log("getFieldsValue", getFieldsValue());
     return (
       <Form layout="inline" onSubmit={() => {}}>
         <FormItem>

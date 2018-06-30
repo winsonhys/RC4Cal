@@ -18,7 +18,6 @@ class MyCalendar extends Component {
   };
   render() {
     const { history, userId, events } = this.props;
-    console.log(events);
     return (
       <div className="calendar">
         <BigCalendar
