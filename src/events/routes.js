@@ -4,12 +4,10 @@ import Calendar from "./calendar";
 import NewEvent from "./newEvent";
 
 const routes = () => (
-  <Router>
-    <div>
-      <Route exact path="/" component={Calendar} />
-      <Route exact path="/new" component={NewEvent} />
-    </div>
-  </Router>
+  <div>
+    <Route exact path="/calendar" component={Calendar} />
+    <Route exact path="/new" component={NewEvent} />
+  </div>
 );
 
 export default routes;

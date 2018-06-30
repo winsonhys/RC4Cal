@@ -4,15 +4,12 @@ import { Provider } from "react-redux";
 import "./index.css";
 import store from "./store";
 import registerServiceWorker from "./registerServiceWorker";
+import Main from "./routes";
 
 ReactDOM.render(
   <Provider store={store()}>
-    <Calendar />
+    <Main />
   </Provider>,
   document.getElementById("root")
 );
 registerServiceWorker();
-
-{
-  /* <WrappedLoginForm/> */
-}

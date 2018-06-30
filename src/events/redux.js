@@ -13,11 +13,13 @@ export default (state = initialState, action) => {
     case UPDATING_EVENTS:
       return { ...state, updating: true };
     case UPDATING_EVENTS_SUCCESS: {
-      return { ...state, events: action.payload };
+      return { ...state, events: action.events };
     }
     case UPDATING_EVENTS_ERROR: {
-      return { ...state, error: action.payload.error };
+      return { ...state, error: action.error };
     }
+    default:
+      return state;
   }
 };
 
@@ -26,7 +28,7 @@ const updatingEvents = () => ({
 });
 const updatingEventsSuccess = events => ({
   type: UPDATING_EVENTS_SUCCESS,
-  payload: events
+  events
 });
 const updatingEventsError = error => ({
   type: UPDATING_EVENTS_ERROR,

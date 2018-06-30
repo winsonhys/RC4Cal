@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import BigCalendar from "react-big-calendar";
+import { withRouter } from "react-router-dom";
 import "./react-big-calendar.css";
 import moment from "moment";
 // import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
@@ -34,4 +35,4 @@ const MyCalendar = props => {
   );
 };
 
-export default MyCalendar;
+export default withRouter(MyCalendar);
