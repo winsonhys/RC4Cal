@@ -17,7 +17,8 @@ class MyCalendar extends Component {
     }
   };
   render() {
-    const { history, userId } = this.props;
+    const { history, userId, events } = this.props;
+    console.log(events);
     return (
       <div className="calendar">
         <BigCalendar
@@ -28,7 +29,8 @@ class MyCalendar extends Component {
           onSelectEvent={slotInfo => {
             history.push("/edit", { ...slotInfo });
           }}
-          events={this.props.events}
+          events={events}
+          defaultDate={moment().toDate()}
           style={{ height: "100vh" }}
         />
       </div>
