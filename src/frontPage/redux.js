@@ -44,7 +44,6 @@ export const getUser = (username, password) => {
       const user = await getUserBackend(username, password);
       return dispatch(gettingUserSuccess(user));
     } catch (e) {
-      console.log(e);
       dispatch(gettingUserError(e));
     }
   };
