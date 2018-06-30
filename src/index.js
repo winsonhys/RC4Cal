@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import "./index.css";
 import store from "./store";
-import { Provider } from "react-redux";
-import Calendar from "./calendar/calendar";
-import WrappedLoginForm from "./FrontPage/Login"
 import registerServiceWorker from "./registerServiceWorker";
+import Main from "./routes";
 
 ReactDOM.render(
   <Provider store={store()}>
-    <WrappedLoginForm/>
+    <Main />
   </Provider>,
   document.getElementById("root")
 );
