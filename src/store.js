@@ -1,10 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import devTools from "remote-redux-devtools";
-import LogInPageReducer from "./logInPage/redux";
+
+import CalendarReducer from "./events/redux";
+import UserReducer from "./frontPage/redux";
 
 const reducer = combineReducers({
-  LogInPage: LogInPageReducer
+  user: UserReducer,
+  events: CalendarReducer
 });
 
 const configureStore = () => {
