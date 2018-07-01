@@ -1,9 +1,15 @@
 import { connect } from "react-redux";
 import NewEventForm from "./Component";
-import { createEvent } from "../redux";
+import { createEvent, deleteEvent } from "../redux";
+
+const mapStateToProps = state => ({
+  events: state.events.events,
+  updating: state.events.updating
+});
 
 const mapDispatchToProps = {
-  createEvent
+  createEvent,
+  deleteEvent
 };
 
-export default connect(() => ({}), mapDispatchToProps)(NewEventForm);
+export default connect(mapStateToProps, mapDispatchToProps)(NewEventForm);

@@ -11,14 +11,15 @@ export const get = async id => {
     .then(r => r.data);
 };
 
-export const create = async (title, start, end, userId) => {
+export const create = async (title, start, end, userId, type) => {
   const api = await axiosInstance();
   return api
     .post("./events", {
       title,
       start,
       end,
-      userId
+      userId,
+      type
     })
     .then(r => r.data);
 };
