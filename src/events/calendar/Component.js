@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import BigCalendar from "react-big-calendar";
 import { withRouter } from "react-router-dom";
-import "./react-big-calendar.css";
+import _ from "lodash";
 import moment from "moment";
+import "./react-big-calendar.css";
 // import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 
 // const BigCalendar = withDragAndDrop(Calendar);
@@ -16,11 +17,22 @@ class MyCalendar extends Component {
       this.props.updateEvents(this.props.userId);
     }
   };
+  eventsISOToDateConverter = events => {
+    return _.map(events, event => {
+      return {
+        ...event,
+        start: moment(event.start).toDate(),
+        end: moment(event.end).toDate()
+      };
+    });
+  };
   render() {
     const { history, userId, events } = this.props;
     return (
       <div className="calendar">
         <BigCalendar
+          popup
+          views={["month", "day"]} // agenda view not working
           selectable={true}
           onSelectSlot={slotInfo => {
             history.push("/new", { ...slotInfo, userId });
@@ -28,7 +40,7 @@ class MyCalendar extends Component {
           onSelectEvent={slotInfo => {
             history.push("/edit", { ...slotInfo });
           }}
-          events={events}
+          events={this.eventsISOToDateConverter(events)}
           defaultDate={moment().toDate()}
           style={{ height: "100vh" }}
         />

@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
     case CREATING_EVENT:
       return { ...state, updating: true };
     case CREATING_EVENT_SUCCESS: {
-      const events = state.events.events;
+      const events = state.events;
       events.push(action.event);
       return {
         ...state,
@@ -123,8 +123,8 @@ export const createEvent = eventObject => {
   return async dispatch => {
     dispatch(creatingEvent());
     try {
-      const { title, start, end, userId } = eventObject;
-      const event = await createUserEvent(title, start, end, userId);
+      const { title, start, end, userId, type } = eventObject;
+      const event = await createUserEvent(title, start, end, userId, type);
       dispatch(creatingEventSuccess(event));
     } catch (e) {
       dispatch(creatingEventError(e));
