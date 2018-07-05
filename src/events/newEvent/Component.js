@@ -115,16 +115,12 @@ class NewEventScreen extends Component {
     );
   };
   render() {
-    const { start, end } = this.props.history.location.state;
-
-    // TODO: Move the form out into common component
     return (
       <div className="formAndModal">
         <EventForm
-          timeStart={start}
-          timeEnd={end}
           updating={this.props.updating}
           handleSubmit={this.handleCreate}
+          eventObject={this.props.history.location.state}
         />
         {this.renderOverrideModal()}
       </div>
@@ -136,12 +132,6 @@ NewEventScreen.propTypes = {
   deleteEvent: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
   updating: PropTypes.bool.isRequired,
-  form: PropTypes.shape({
-    getFieldDecorator: PropTypes.func.isRequired,
-    getFieldsError: PropTypes.func.isRequired,
-    getFieldsValue: PropTypes.func.isRequired,
-    validateFields: PropTypes.func.isRequired
-  }),
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
     location: PropTypes.shape({

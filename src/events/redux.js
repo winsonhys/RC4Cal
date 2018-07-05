@@ -17,8 +17,7 @@ export const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR";
 const initialState = {
   events: [],
   updating: false,
-  error: null,
-  loadedBefore: false
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -29,8 +28,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         events: action.events,
-        updating: false,
-        loadedBefore: true
+        updating: false
       };
     }
     case UPDATING_EVENTS_ERROR: {
