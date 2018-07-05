@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import _ from "lodash";
 import PropTypes from "prop-types";
 import { Form, Button, Input, Icon } from "antd";

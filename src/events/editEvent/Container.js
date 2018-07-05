@@ -7,4 +7,9 @@ const mapDispatchToProps = {
   deleteEvent
 };
 
-export default withRouter(connect(() => ({}), mapDispatchToProps)(EditEvent));
+export default withRouter(
+  connect(
+    () => ({}),
+    mapDispatchToProps
+  )(EditEvent)
+);

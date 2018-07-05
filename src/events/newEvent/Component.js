@@ -1,30 +1,13 @@
 import React, { Component } from "react";
-import {
-  Form,
-  Input,
-  Button,
-  Checkbox,
-  TimePicker,
-  Radio,
-  Modal,
-  message
-} from "antd";
-import DateTime from "react-datetime";
+import { Modal, message } from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
 import "./date-time-picker.css";
 import "./form.css";
-import { EVENT_TYPE, EVENT_TYPE_HEIRACHY } from "../../common/constants";
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
-
-// TODO: Functions written below might be moved to a common folder.
-const isNotFilled = fieldsError => {
-  const errors = _.compact(_.values(fieldsError));
-  return !(errors.length === 0);
-};
+import EventForm from "../../common/components/eventForm";
+import { EVENT_TYPE_HEIRACHY } from "../../common/constants";
 
 const getClashingEvents = (events, newEvent) => {
   const { start, end } = newEvent;
@@ -54,8 +37,7 @@ class NewEventScreen extends Component {
   };
 
   componentDidMount = () => {
-    this.props.form.validateFields();
-    const { start, userId } = this.props.history.location.state;
+    const { userId } = this.props.history.location.state;
     this.setState({
       userId: userId
     });
@@ -133,75 +115,17 @@ class NewEventScreen extends Component {
     );
   };
   render() {
-    const {
-      getFieldDecorator,
-      getFieldsError,
-      getFieldsValue
-    } = this.props.form;
     const { start, end } = this.props.history.location.state;
-    const radioStyle = {
-      display: "block",
-      height: "30px",
-      lineHeight: "30px"
-    };
+
+    // TODO: Move the form out into common component
     return (
-      <div class="formAndModal">
-        <Form layout="inline" onSubmit={() => {}}>
-          <FormItem>
-            {getFieldDecorator("title", {
-              rules: [{ required: true, message: " " }]
-            })(<Input placeholder="Event name" />)}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator("allDay", {
-              valuePropName: "checked",
-              initialValue: false
-            })(<Checkbox>All day?</Checkbox>)}
-          </FormItem>
-          <FormItem>
-            <h2 className="start">Start time</h2>
-            {getFieldDecorator("start", {
-              initialValue: moment(start)
-            })(<DateTime input={false} />)}
-          </FormItem>
-          <FormItem>
-            <h2 className="end">End Time</h2>
-            {getFieldDecorator("end", {
-              initialValue: moment(end).endOf("day")
-            })(<DateTime input={false} />)}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator("type", {
-              rules: [{ required: true, message: " " }],
-              initialValue: EVENT_TYPE.NUS
-            })(
-              <RadioGroup>
-                <Radio.Button style={radioStyle} value={EVENT_TYPE.NUS}>
-                  NUS Event
-                </Radio.Button>
-                <Radio.Button style={radioStyle} value={EVENT_TYPE.COLLEGE}>
-                  College Event
-                </Radio.Button>
-                <Radio.Button style={radioStyle} value={EVENT_TYPE.HOUSE}>
-                  House Event
-                </Radio.Button>
-                <Radio.Button style={radioStyle} value={EVENT_TYPE.IG}>
-                  Interest Group Event
-                </Radio.Button>
-              </RadioGroup>
-            )}
-          </FormItem>
-          <FormItem>
-            <Button
-              type="primary"
-              disabled={isNotFilled(getFieldsError())}
-              onClick={() => this.handleCreate(getFieldsValue())}
-              loading={this.props.updating}
-            >
-              {this.props.updating ? "Creating" : "Create new Event"}
-            </Button>
-          </FormItem>
-        </Form>
+      <div className="formAndModal">
+        <EventForm
+          timeStart={start}
+          timeEnd={end}
+          updating={this.props.updating}
+          handleSubmit={this.handleCreate}
+        />
         {this.renderOverrideModal()}
       </div>
     );
@@ -211,6 +135,23 @@ NewEventScreen.propTypes = {
   createEvent: PropTypes.func.isRequired,
   deleteEvent: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
-  updating: PropTypes.bool.isRequired
+  updating: PropTypes.bool.isRequired,
+  form: PropTypes.shape({
+    getFieldDecorator: PropTypes.func.isRequired,
+    getFieldsError: PropTypes.func.isRequired,
+    getFieldsValue: PropTypes.func.isRequired,
+    validateFields: PropTypes.func.isRequired
+  }),
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.shape({
+        userId: PropTypes.string.isRequired,
+        start: PropTypes.string.isRequired,
+        end: PropTypes.string.isRequired
+      })
+    })
+  }).isRequired
 };
-export default withRouter(Form.create()(NewEventScreen));
+export default withRouter(NewEventScreen);
+// export default withRouter(Form.create()(NewEventScreen));

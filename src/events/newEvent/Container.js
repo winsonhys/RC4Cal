@@ -12,4 +12,7 @@ const mapDispatchToProps = {
   deleteEvent
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewEventForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NewEventForm);

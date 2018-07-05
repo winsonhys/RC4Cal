@@ -7,4 +7,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = { getUser };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginPage);

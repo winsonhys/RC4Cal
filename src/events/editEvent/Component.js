@@ -22,7 +22,8 @@ class EditEvent extends Component {
 }
 
 EditEvent.propTypes = {
-  deleteEvent: PropTypes.func.isRequired
+  deleteEvent: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default EditEvent;
