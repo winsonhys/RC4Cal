@@ -4,16 +4,19 @@ import { Button } from "antd";
 import EventForm from "../../common/components/eventForm";
 //TODO: ALLOW PEOPLE TO ACTUALLY EDIT EVENTS
 class EditEvent extends Component {
+  handleEdit = fields => {
+    console.log("hit endpoint");
+  };
   render() {
     const { history, deleteEvent, updating } = this.props;
     const { id } = history.location.state;
-    console.log(history.location.state);
     return (
       <div className="editEvent">
         <EventForm
           updating={updating}
           edit
           eventObject={history.location.state}
+          handleSubmit={this.handleEdit}
         />
         <Button
           onClick={() => {
