@@ -5,8 +5,7 @@ import CalendarComponent from "./Component";
 
 const mapStateToProps = state => ({
   events: state.events.events,
-  userId: state.user.user.id,
-  loadedBefore: state.events.loadedBefore
+  userId: state.user.user.id
 });
 
 const mapDispatchToProps = {
@@ -14,5 +13,8 @@ const mapDispatchToProps = {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CalendarComponent)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CalendarComponent)
 );

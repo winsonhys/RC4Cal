@@ -21,7 +21,10 @@ const configureStore = () => {
   const store = createStore(
     persistedReducer,
     {},
-    compose(applyMiddleware(thunk), devTools())
+    compose(
+      applyMiddleware(thunk),
+      devTools()
+    )
   );
   const persistor = persistStore(store);
   return { store, persistor };

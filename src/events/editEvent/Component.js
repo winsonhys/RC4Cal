@@ -1,13 +1,32 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button } from "antd";
+import EventForm from "../../common/components/eventForm";
 //TODO: ALLOW PEOPLE TO ACTUALLY EDIT EVENTS
 class EditEvent extends Component {
+  handleEdit = async fields => {
+    const { id } = this.props.history.location.state;
+    const { title, start, end, type, allDay } = fields;
+    await this.props.editEvent(id, {
+      title,
+      start,
+      end,
+      type,
+      allDay
+    });
+    this.props.history.goBack();
+  };
   render() {
-    const { history, deleteEvent } = this.props;
+    const { history, deleteEvent, updating } = this.props;
     const { id } = history.location.state;
     return (
       <div className="editEvent">
+        <EventForm
+          updating={updating}
+          edit
+          eventObject={history.location.state}
+          handleSubmit={this.handleEdit}
+        />
         <Button
           onClick={() => {
             deleteEvent(id);
@@ -22,7 +41,10 @@ class EditEvent extends Component {
 }
 
 EditEvent.propTypes = {
-  deleteEvent: PropTypes.func.isRequired
+  deleteEvent: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  updating: PropTypes.bool.isRequired,
+  editEvent: PropTypes.func.isRequired
 };
 
 export default EditEvent;
