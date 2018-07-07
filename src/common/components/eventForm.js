@@ -45,7 +45,7 @@ class EventForm extends Component {
         <FormItem>
           {getFieldDecorator("allDay", {
             valuePropName: "checked",
-            initialValue: false
+            initialValue: eventObject.allDay
           })(<Checkbox>All day?</Checkbox>)}
         </FormItem>
         <FormItem>

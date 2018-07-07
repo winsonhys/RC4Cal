@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { deleteEvent } from "../redux";
+import { deleteEvent, editEvent } from "../redux";
 import { withRouter } from "react-router-dom";
 import EditEvent from "./Component";
 
@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  deleteEvent
+  deleteEvent,
+  editEvent
 };
 
 export default withRouter(

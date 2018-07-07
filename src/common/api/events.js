@@ -11,7 +11,7 @@ export const get = async id => {
     .then(r => r.data);
 };
 
-export const create = async (title, start, end, userId, type) => {
+export const create = async (title, start, end, userId, type, allDay) => {
   const api = await axiosInstance();
   return api
     .post("./events", {
@@ -19,7 +19,8 @@ export const create = async (title, start, end, userId, type) => {
       start,
       end,
       userId,
-      type
+      type,
+      allDay
     })
     .then(r => r.data);
 };
@@ -31,4 +32,17 @@ export const destroy = async id => {
       params: { id: id }
     })
     .then(r => r.data);
+};
+
+export const update = async updatedEventObject => {
+  const { id, title, start, end, allDay, type } = updatedEventObject;
+  const api = await axiosInstance();
+  return api.patch("./events", {
+    id,
+    title,
+    start,
+    end,
+    allDay,
+    type
+  });
 };

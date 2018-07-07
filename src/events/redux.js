@@ -2,7 +2,8 @@ import _ from "lodash";
 import {
   create as createUserEvent,
   get as getUserEvents,
-  destroy as deleteUserEvent
+  destroy as deleteUserEvent,
+  update as updateUserEvent
 } from "../common/api/events";
 export const UPDATING_EVENTS = "UPDATING_EVENTS";
 export const UPDATING_EVENTS_SUCCESS = "UPDATING_EVENTS_SUCCESS";
@@ -13,6 +14,9 @@ export const CREATING_EVENT_ERROR = "CREATING_EVENT_ERROR";
 export const DELETE_EVENT = "DELETE_EVENT";
 export const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS";
 export const DELETE_EVENT_ERROR = "DELETE_EVENT_ERROR";
+export const EDITING_EVENT = "EDITING_EVENT";
+export const EDITING_EVENT_SUCCESS = "EDITING_EVENT_SUCCESS";
+export const EDITING_EVENT_ERROR = "EDITING_EVENT_ERROR";
 
 const initialState = {
   events: [],
@@ -33,6 +37,20 @@ export default (state = initialState, action) => {
     }
     case UPDATING_EVENTS_ERROR: {
       return { ...state, error: action.error, updating: false };
+    }
+    case EDITING_EVENT: {
+      return { ...state, updating: true };
+    }
+    case EDITING_EVENT_SUCCESS: {
+      const eventIndex = _.findIndex(
+        state.events,
+        event => (event.id = action.editedEvent.id)
+      );
+      state.events[eventIndex] = action.editedEvent;
+      return { ...state };
+    }
+    case EDITING_EVENT_ERROR: {
+      return { ...state, error: action.error };
     }
     case CREATING_EVENT:
       return { ...state, updating: true };
@@ -104,6 +122,19 @@ const deletingEventError = error => ({
   type: DELETE_EVENT_ERROR,
   error
 });
+const editingEvent = () => ({
+  type: EDITING_EVENT
+});
+
+const editingEventSuccess = editedEvent => ({
+  type: EDITING_EVENT_SUCCESS,
+  editedEvent
+});
+
+const editingEventError = error => ({
+  type: EDITING_EVENT_ERROR,
+  error
+});
 
 export const updateEvents = id => {
   return async dispatch => {
@@ -117,12 +148,34 @@ export const updateEvents = id => {
   };
 };
 
+export const editEvent = (id, eventObject) => {
+  return async dispatch => {
+    dispatch(editingEvent());
+    try {
+      const event = await updateUserEvent({
+        id,
+        ...eventObject
+      });
+      dispatch(editingEventSuccess(event));
+    } catch (e) {
+      dispatch(editingEventError(e));
+    }
+  };
+};
+
 export const createEvent = eventObject => {
   return async dispatch => {
     dispatch(creatingEvent());
     try {
-      const { title, start, end, userId, type } = eventObject;
-      const event = await createUserEvent(title, start, end, userId, type);
+      const { title, start, end, userId, type, allDay } = eventObject;
+      const event = await createUserEvent(
+        title,
+        start,
+        end,
+        userId,
+        type,
+        allDay
+      );
       dispatch(creatingEventSuccess(event));
     } catch (e) {
       dispatch(creatingEventError(e));
