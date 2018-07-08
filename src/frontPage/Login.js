@@ -31,7 +31,7 @@ class Login extends Component {
       getFieldError
     } = this.props.form;
     const { username, password } = getFieldsValue();
-    const buttonText = this.props.loggingIn ? "Logging in" : "Login"; //TODO:Does not change text when login button is pressed
+    const buttonText = this.props.loggingIn ? "Logging in" : "Login";
     
     // Only show error after a field is touched
      const userNameError = isFieldTouched('username') && getFieldError('username');
