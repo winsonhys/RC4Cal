@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { Form, Checkbox, Radio, Button, Input } from "antd";
+import { Form, Checkbox, Radio, Button, Input, Select } from "antd";
 import moment from "moment";
 import PropTypes from "prop-types";
-import { EVENT_TYPE } from "../constants";
+import _ from "lodash";
+import { EVENT_TYPE, LOCATION } from "../constants";
 import { isNotFilled } from "../functions";
 import DateTime from "react-datetime";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
+const Option = Select.Option;
 
 const radioStyle = {
   display: "block",
@@ -31,6 +33,8 @@ class EventForm extends Component {
     }
     return "Create Event";
   };
+  renderLocationPickerItems = () =>
+    _.map(LOCATION, location => <Option value={location}>{location}</Option>);
   render() {
     const { form, handleSubmit, updating, edit, eventObject } = this.props;
     const { getFieldDecorator, getFieldsError, getFieldsValue } = form;
@@ -80,6 +84,11 @@ class EventForm extends Component {
               </Radio.Button>
             </RadioGroup>
           )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("location", {
+            initialValue: LOCATION.TR1
+          })(<Select>{this.renderLocationPickerItems()}</Select>)}
         </FormItem>
         <FormItem>
           <Button
