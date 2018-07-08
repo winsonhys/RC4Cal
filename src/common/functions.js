@@ -16,7 +16,10 @@ export const getClashingEvents = (events, newEvent) => {
       dayEvent.start,
       dayEvent.end
     );
-    return newEventTimeRange.overlaps(existingEventTimeRange);
+    return (
+      newEvent.location === dayEvent.location &&
+      newEventTimeRange.overlaps(existingEventTimeRange)
+    );
   });
 
   return clashEvents;

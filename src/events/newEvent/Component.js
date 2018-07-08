@@ -28,7 +28,7 @@ class NewEventScreen extends Component {
   };
 
   handleCreate = async validatedFields => {
-    const { title, start, end, allDay, type } = validatedFields;
+    const { title, start, end, allDay, type, location } = validatedFields;
     const userId = this.state.userId;
     const newEvent = {
       title,
@@ -36,7 +36,8 @@ class NewEventScreen extends Component {
       end: end.toISOString(),
       allDay,
       userId,
-      type
+      type,
+      location
     };
     const clashingEvents = getClashingEvents(this.props.events, newEvent);
     if (clashingEvents.length === 0) {

@@ -11,7 +11,15 @@ export const get = async id => {
     .then(r => r.data);
 };
 
-export const create = async (title, start, end, userId, type, allDay) => {
+export const create = async (
+  title,
+  start,
+  end,
+  userId,
+  type,
+  allDay,
+  location
+) => {
   const api = await axiosInstance();
   return api
     .post("./events", {
@@ -20,7 +28,8 @@ export const create = async (title, start, end, userId, type, allDay) => {
       end,
       userId,
       type,
-      allDay
+      allDay,
+      location
     })
     .then(r => r.data);
 };
@@ -35,7 +44,7 @@ export const destroy = async id => {
 };
 
 export const update = async updatedEventObject => {
-  const { id, title, start, end, allDay, type } = updatedEventObject;
+  const { id, title, start, end, allDay, type, location } = updatedEventObject;
   const api = await axiosInstance();
   return api.patch("./events", {
     id,
@@ -43,6 +52,7 @@ export const update = async updatedEventObject => {
     start,
     end,
     allDay,
-    type
+    type,
+    location
   });
 };

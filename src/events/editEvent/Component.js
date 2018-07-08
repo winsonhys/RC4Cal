@@ -6,13 +6,14 @@ import EventForm from "../../common/components/eventForm";
 class EditEvent extends Component {
   handleEdit = async fields => {
     const { id } = this.props.history.location.state;
-    const { title, start, end, type, allDay } = fields;
+    const { title, start, end, type, allDay, location } = fields;
     await this.props.editEvent(id, {
       title,
       start,
       end,
       type,
-      allDay
+      allDay,
+      location
     });
     this.props.history.goBack();
   };
