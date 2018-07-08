@@ -6,11 +6,7 @@ import { withRouter } from "react-router-dom";
 import "./date-time-picker.css";
 import "./form.css";
 import EventForm from "../../common/components/eventForm";
-import { EVENT_TYPE_HEIRACHY } from "../../common/constants";
-import { getClashingEvents } from "../../common/functions";
-
-const canOverride = (overridingType, overriddenType) =>
-  EVENT_TYPE_HEIRACHY[overridingType] > EVENT_TYPE_HEIRACHY[overriddenType];
+import { getClashingEvents, canOverride } from "../../common/functions";
 
 class NewEventScreen extends Component {
   state = {

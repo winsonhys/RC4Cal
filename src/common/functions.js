@@ -1,6 +1,7 @@
 import _ from "lodash";
 import moment from "moment";
 import { extendMoment } from "moment-range";
+import { EVENT_TYPE_HEIRACHY } from "./constants";
 const MomentRanged = extendMoment(moment);
 
 export const isNotFilled = fieldsError => {
@@ -24,3 +25,6 @@ export const getClashingEvents = (events, newEvent) => {
 
   return clashEvents;
 };
+
+export const canOverride = (overridingType, overriddenType) =>
+  EVENT_TYPE_HEIRACHY[overridingType] > EVENT_TYPE_HEIRACHY[overriddenType];
