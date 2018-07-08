@@ -167,14 +167,15 @@ export const createEvent = eventObject => {
   return async dispatch => {
     dispatch(creatingEvent());
     try {
-      const { title, start, end, userId, type, allDay } = eventObject;
+      const { title, start, end, userId, type, allDay, location } = eventObject;
       const event = await createUserEvent(
         title,
         start,
         end,
         userId,
         type,
-        allDay
+        allDay,
+        location
       );
       dispatch(creatingEventSuccess(event));
     } catch (e) {

@@ -3,30 +3,10 @@ import { Modal, message } from "antd";
 import PropTypes from "prop-types";
 import _ from "lodash";
 import { withRouter } from "react-router-dom";
-import moment from "moment";
 import "./date-time-picker.css";
 import "./form.css";
 import EventForm from "../../common/components/eventForm";
-import { EVENT_TYPE_HEIRACHY } from "../../common/constants";
-
-const getClashingEvents = (events, newEvent) => {
-  const { start, end } = newEvent;
-  const newEventStart = moment(start).valueOf();
-  const newEventEnd = moment(end).valueOf();
-  const clashEvents = _.filter(events, dayEvent => {
-    const dayEventStart = moment(dayEvent.start).valueOf();
-    const dayEventEnd = moment(dayEvent.end).valueOf();
-    const newBeforeOld =
-      newEventStart < dayEventStart && newEventEnd <= dayEventStart;
-    const newAfterOld =
-      newEventStart >= dayEventEnd && newEventEnd > dayEventEnd;
-    return !(newBeforeOld || newAfterOld);
-  });
-  return clashEvents;
-};
-
-const canOverride = (overridingType, overriddenType) =>
-  EVENT_TYPE_HEIRACHY[overridingType] > EVENT_TYPE_HEIRACHY[overriddenType];
+import { getClashingEvents, canOverride } from "../../common/functions";
 
 class NewEventScreen extends Component {
   state = {
@@ -44,7 +24,7 @@ class NewEventScreen extends Component {
   };
 
   handleCreate = async validatedFields => {
-    const { title, start, end, allDay, type } = validatedFields;
+    const { title, start, end, allDay, type, location } = validatedFields;
     const userId = this.state.userId;
     const newEvent = {
       title,
@@ -52,7 +32,8 @@ class NewEventScreen extends Component {
       end: end.toISOString(),
       allDay,
       userId,
-      type
+      type,
+      location
     };
     const clashingEvents = getClashingEvents(this.props.events, newEvent);
     if (clashingEvents.length === 0) {

@@ -18,7 +18,7 @@ class Login extends Component {
   };
 
   handleLogIn = async (username, password) => {
-    const user = await this.props.getUser(username, password);
+    await this.props.getUser(username, password);
     this.props.history.push("/calendar");
   };
 
@@ -32,30 +32,27 @@ class Login extends Component {
     } = this.props.form;
     const { username, password } = getFieldsValue();
     const buttonText = this.props.loggingIn ? "Logging in" : "Login";
-    
+
     // Only show error after a field is touched
-     const userNameError = isFieldTouched('username') && getFieldError('username');
-     const passwordError = isFieldTouched('password') && getFieldError('password');
+    const userNameError =
+      isFieldTouched("username") && getFieldError("username");
+    const passwordError =
+      isFieldTouched("password") && getFieldError("password");
 
     return (
       <Form layout="inline" className="login">
         <FormItem
-        validateStatus={userNameError ? 'error' : ''}
-        help={userNameError || ''}
+          validateStatus={userNameError ? "error" : ""}
+          help={userNameError || ""}
         >
           {getFieldDecorator("username", {
             rules: [{ required: true, message: "Please input your username" }]
-          })(
-          <Input
-          prefix={<Icon type="user" />}
-          placeholder="Username" 
-          />
-          )}
+          })(<Input prefix={<Icon type="user" />} placeholder="Username" />)}
         </FormItem>
 
         <FormItem
-        validateStatus={passwordError ? 'error' : ''}
-        help={passwordError || ''}
+          validateStatus={passwordError ? "error" : ""}
+          help={passwordError || ""}
         >
           {getFieldDecorator("password", {
             rules: [{ required: true, message: "Please input your password" }]
