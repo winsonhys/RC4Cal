@@ -13,9 +13,7 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment));
 
 class MyCalendar extends Component {
   componentDidMount = () => {
-    if (!this.props.loadedBefore) {
-      this.props.updateEvents(this.props.userId);
-    }
+    this.props.updateEvents(this.props.userId);
   };
   eventsISOToDateConverter = events => {
     return _.map(events, event => {
@@ -52,7 +50,8 @@ class MyCalendar extends Component {
 MyCalendar.propTypes = {
   userId: PropTypes.string.isRequired,
   events: PropTypes.array.isRequired,
-  updateEvents: PropTypes.func.isRequired
+  updateEvents: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default withRouter(MyCalendar);
