@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { EVENT_TYPE } from "../constants";
 import { isNotFilled } from "../functions";
 import DateTime from "react-datetime";
+import "./form.css";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
@@ -36,11 +37,11 @@ class EventForm extends Component {
     const { getFieldDecorator, getFieldsError, getFieldsValue } = form;
     return (
       <Form layout="inline" onSubmit={() => {}}>
-        <FormItem>
+        <FormItem className="eventTitle">
           {getFieldDecorator("title", {
             rules: [{ required: true, message: " " }],
             initialValue: edit ? eventObject.title : null
-          })(<Input placeholder="Create Event" />)}
+          })(<Input placeholder="Event Title" />)}
         </FormItem>
         <FormItem>
           {getFieldDecorator("allDay", {
