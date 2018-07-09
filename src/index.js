@@ -8,6 +8,8 @@ import registerServiceWorker from "./registerServiceWorker";
 import Main from "./routes";
 
 const { store, persistor } = getStore();
+console.log(process.env);
+console.log(process.env.REACT_APP_HELLO);
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
