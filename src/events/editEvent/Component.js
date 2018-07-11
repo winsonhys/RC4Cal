@@ -4,6 +4,10 @@ import { Button } from "antd";
 import EventForm from "../../common/components/eventForm";
 //TODO: ALLOW PEOPLE TO ACTUALLY EDIT EVENTS
 class EditEvent extends Component {
+  componentDidMount = () => {
+    document.title = "Edit Event";
+  };
+
   handleEdit = async fields => {
     const { id } = this.props.history.location.state;
     const { title, start, end, type, allDay } = fields;
@@ -28,6 +32,7 @@ class EditEvent extends Component {
           handleSubmit={this.handleEdit}
         />
         <Button
+          className="deleteEvent"
           onClick={() => {
             deleteEvent(id);
             history.goBack();
