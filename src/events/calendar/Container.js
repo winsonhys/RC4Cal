@@ -1,20 +1,20 @@
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { updateEvents } from "../redux";
-import CalendarComponent from "./Component";
+import { connect } from "react-redux"
+import { withRouter } from "react-router-dom"
+import { updateEvents } from "../redux"
+import CalendarComponent from "./Component"
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   events: state.events.events,
-  userId: state.user.user.id
-});
+  userId: state.user.user.id,
+})
 
 const mapDispatchToProps = {
-  updateEvents
-};
+  updateEvents,
+}
 
 export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
   )(CalendarComponent)
-);
+)
