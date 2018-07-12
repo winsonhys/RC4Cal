@@ -8,7 +8,6 @@ import DateTime from "react-datetime";
 import "./form.css";
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
-let pageHeader;
 
 const radioStyle = {
   display: "block",
@@ -19,7 +18,7 @@ const radioStyle = {
 class EventForm extends Component {
   componentDidMount = () => {
     this.props.form.validateFields();
-    document.title = "Create New Event";
+    document.title = this.pageHeader();
   };
 
   renderButtonText = updating => {
@@ -27,22 +26,28 @@ class EventForm extends Component {
       if (updating) {
         return "Editing";
       }
-      pageHeader = "Edit Event";
       return "Edit event";
     }
     if (updating) {
       return "Creating";
     }
-    pageHeader = "Create New Event";
     return "Create Event";
   };
+
+  pageHeader = () => {
+    if (this.props.edit) {
+      return "Edit Event";
+    }
+    return "Create New Event";
+  };
+
   render() {
     const { form, handleSubmit, updating, edit, eventObject } = this.props;
     const { getFieldDecorator, getFieldsError, getFieldsValue } = form;
     return (
       <Form layout="inline" onSubmit={() => {}}>
         <div className="pageTitle">
-          <h1>{pageHeader}</h1>
+          <h1>{this.pageHeader()}</h1>
         </div>
         <div className="chooseDateTime">
           <FormItem>
