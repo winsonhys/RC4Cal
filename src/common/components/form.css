@@ -52,6 +52,12 @@
 
 .deleteEvent {
   position: absolute;
-  top: 28%;
-  left: 76%;
+  top: 18.5%;
+  left: 85%;
+}
+
+.locationPicker {
+  position: absolute;
+  top: 24%;
+  left: 40%;
 }

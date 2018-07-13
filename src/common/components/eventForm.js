@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import { Form, Checkbox, Radio, Button, Input } from "antd";
-import moment from "moment";
-import PropTypes from "prop-types";
-import { EVENT_TYPE } from "../constants";
-import { isNotFilled } from "../functions";
-import DateTime from "react-datetime";
-import "./form.css";
-const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
+import React, { Component } from "react"
+import { Form, Checkbox, Radio, Button, Input, Select } from "antd"
+import moment from "moment"
+import PropTypes from "prop-types"
+import _ from "lodash"
+import { EVENT_TYPE, LOCATION } from "../constants"
+import { isNotFilled } from "../functions"
+import DateTime from "react-datetime"
+import "./form.css"
+const FormItem = Form.Item
+const RadioGroup = Radio.Group
+const Option = Select.Option
 
 const radioStyle = {
   display: "block",
@@ -17,9 +19,9 @@ const radioStyle = {
 
 class EventForm extends Component {
   componentDidMount = () => {
-    this.props.form.validateFields();
-    document.title = this.pageHeader();
-  };
+    this.props.form.validateFields()
+    document.title = this.pageHeader()
+  }
 
   renderButtonText = (updating) => {
     if (this.props.edit) {
@@ -31,15 +33,15 @@ class EventForm extends Component {
     if (updating) {
       return "Creating"
     }
-    return "Create Event";
-  };
+    return "Create Event"
+  }
 
   pageHeader = () => {
     if (this.props.edit) {
-      return "Edit Event";
+      return "Edit Event"
     }
-    return "Create New Event";
-  };
+    return "Create New Event"
+  }
 
   renderLocationPickerItems = () =>
     _.map(LOCATION, (location) => <Option value={location}>{location}</Option>)
@@ -53,18 +55,6 @@ class EventForm extends Component {
         </div>
         <div className="chooseDateTime">
           <FormItem>
-          {getFieldDecorator("title", {
-            rules: [{ required: true, message: " " }],
-            initialValue: edit ? eventObject.title : null,
-          })(<Input placeholder="Create Event" />)}
-        </FormItem>
-        <FormItem>
-          {getFieldDecorator("allDay", {
-            valuePropName: "checked",
-            initialValue: edit ? eventObject.allDay : false,
-          })(<Checkbox>All day?</Checkbox>)}
-        </FormItem>
-        <FormItem>
             <h2 className="start">Start time</h2>
             {getFieldDecorator("start", {
               initialValue: moment(eventObject.start),
@@ -81,19 +71,19 @@ class EventForm extends Component {
           <FormItem className="eventTitle">
             {getFieldDecorator("title", {
               rules: [{ required: true, message: " " }],
-              initialValue: edit ? eventObject.title : null
+              initialValue: edit ? eventObject.title : null,
             })(<Input placeholder="Event Title" />)}
           </FormItem>
           <FormItem className="allDay">
             {getFieldDecorator("allDay", {
               valuePropName: "checked",
-              initialValue: eventObject.allDay
+              initialValue: edit ? eventObject.allDay : false,
             })(<Checkbox>All day?</Checkbox>)}
           </FormItem>
           <FormItem className="eventType">
             {getFieldDecorator("type", {
               rules: [{ required: true, message: " " }],
-              initialValue: edit ? eventObject.type : EVENT_TYPE.NUS
+              initialValue: edit ? eventObject.type : EVENT_TYPE.NUS,
             })(
               <RadioGroup>
                 <Radio.Button style={radioStyle} value={EVENT_TYPE.NUS}>
@@ -111,12 +101,11 @@ class EventForm extends Component {
               </RadioGroup>
             )}
           </FormItem>
-          <FormItem>
-          {getFieldDecorator("location", {
-            initialValue: LOCATION.TR1,
-          })(<Select>{this.renderLocationPickerItems()}</Select>)}
-        </FormItem>
-        <FormItem>
+          <FormItem className="locationPicker">
+            {getFieldDecorator("location", {
+              initialValue: LOCATION.TR1,
+            })(<Select>{this.renderLocationPickerItems()}</Select>)}
+          </FormItem>
           <FormItem className="createButton">
             <Button
               type="primary"
