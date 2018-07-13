@@ -34,7 +34,11 @@ class EventForm extends Component {
     return "Create Event"
   }
   renderLocationPickerItems = () =>
-    _.map(LOCATION, (location) => <Option value={location}>{location}</Option>)
+    _.map(LOCATION, (location) => (
+      <Option key={location} value={location}>
+        {location}
+      </Option>
+    ))
   render() {
     const { form, handleSubmit, updating, edit, eventObject } = this.props
     const { getFieldDecorator, getFieldsError, getFieldsValue } = form

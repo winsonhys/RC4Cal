@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux"
 import thunk from "redux-thunk"
 import devTools from "remote-redux-devtools"
 import { persistStore, persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage"
+import storageSession from "redux-persist/lib/storage/session"
 
 import CalendarReducer from "./events/redux"
 import UserReducer from "./frontPage/redux"
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
   key: "root",
-  storage,
+  storage: storageSession,
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const configureStore = () => {
