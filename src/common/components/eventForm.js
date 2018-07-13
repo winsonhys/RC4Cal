@@ -12,8 +12,8 @@ const RadioGroup = Radio.Group;
 const radioStyle = {
   display: "block",
   height: "30px",
-  lineHeight: "30px"
-};
+  lineHeight: "30px",
+}
 
 class EventForm extends Component {
   componentDidMount = () => {
@@ -21,15 +21,15 @@ class EventForm extends Component {
     document.title = this.pageHeader();
   };
 
-  renderButtonText = updating => {
+  renderButtonText = (updating) => {
     if (this.props.edit) {
       if (updating) {
-        return "Editing";
+        return "Editing"
       }
-      return "Edit event";
+      return "Edit event"
     }
     if (updating) {
-      return "Creating";
+      return "Creating"
     }
     return "Create Event";
   };
@@ -41,9 +41,11 @@ class EventForm extends Component {
     return "Create New Event";
   };
 
+  renderLocationPickerItems = () =>
+    _.map(LOCATION, (location) => <Option value={location}>{location}</Option>)
   render() {
-    const { form, handleSubmit, updating, edit, eventObject } = this.props;
-    const { getFieldDecorator, getFieldsError, getFieldsValue } = form;
+    const { form, handleSubmit, updating, edit, eventObject } = this.props
+    const { getFieldDecorator, getFieldsError, getFieldsValue } = form
     return (
       <Form layout="inline" onSubmit={() => {}}>
         <div className="pageTitle">
@@ -51,15 +53,27 @@ class EventForm extends Component {
         </div>
         <div className="chooseDateTime">
           <FormItem>
+          {getFieldDecorator("title", {
+            rules: [{ required: true, message: " " }],
+            initialValue: edit ? eventObject.title : null,
+          })(<Input placeholder="Create Event" />)}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator("allDay", {
+            valuePropName: "checked",
+            initialValue: edit ? eventObject.allDay : false,
+          })(<Checkbox>All day?</Checkbox>)}
+        </FormItem>
+        <FormItem>
             <h2 className="start">Start time</h2>
             {getFieldDecorator("start", {
-              initialValue: moment(eventObject.start)
+              initialValue: moment(eventObject.start),
             })(<DateTime input={false} />)}
           </FormItem>
           <FormItem>
             <h2 className="end">End Time</h2>
             {getFieldDecorator("end", {
-              initialValue: moment(eventObject.end).endOf("day")
+              initialValue: moment(eventObject.end).endOf("day"),
             })(<DateTime input={false} />)}
           </FormItem>
         </div>
@@ -97,6 +111,12 @@ class EventForm extends Component {
               </RadioGroup>
             )}
           </FormItem>
+          <FormItem>
+          {getFieldDecorator("location", {
+            initialValue: LOCATION.TR1,
+          })(<Select>{this.renderLocationPickerItems()}</Select>)}
+        </FormItem>
+        <FormItem>
           <FormItem className="createButton">
             <Button
               type="primary"
@@ -109,7 +129,7 @@ class EventForm extends Component {
           </FormItem>
         </div>
       </Form>
-    );
+    )
   }
 }
 
@@ -121,8 +141,8 @@ EventForm.propTypes = {
   eventObject: PropTypes.shape({
     title: PropTypes.string.isRequired,
     start: PropTypes.object.isRequired,
-    end: PropTypes.object.isRequired
-  })
-};
+    end: PropTypes.object.isRequired,
+  }),
+}
 
-export default Form.create()(EventForm);
+export default Form.create()(EventForm)

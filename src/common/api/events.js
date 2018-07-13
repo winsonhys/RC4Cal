@@ -1,18 +1,26 @@
-import axiosInstance from "./axiosConfiguration";
+import axiosInstance from "./axiosConfiguration"
 
-export const get = async id => {
-  const api = await axiosInstance();
+export const get = async (id) => {
+  const api = await axiosInstance()
   return api
     .get("/events", {
       params: {
-        userId: id
-      }
+        userId: id,
+      },
     })
-    .then(r => r.data);
-};
+    .then((r) => r.data)
+}
 
-export const create = async (title, start, end, userId, type, allDay) => {
-  const api = await axiosInstance();
+export const create = async (
+  title,
+  start,
+  end,
+  userId,
+  type,
+  allDay,
+  location
+) => {
+  const api = await axiosInstance()
   return api
     .post("./events", {
       title,
@@ -20,29 +28,31 @@ export const create = async (title, start, end, userId, type, allDay) => {
       end,
       userId,
       type,
-      allDay
+      allDay,
+      location,
     })
-    .then(r => r.data);
-};
+    .then((r) => r.data)
+}
 
-export const destroy = async id => {
-  const api = await axiosInstance();
+export const destroy = async (id) => {
+  const api = await axiosInstance()
   return api
     .delete("./events", {
-      params: { id: id }
+      params: { id: id },
     })
-    .then(r => r.data);
-};
+    .then((r) => r.data)
+}
 
-export const update = async updatedEventObject => {
-  const { id, title, start, end, allDay, type } = updatedEventObject;
-  const api = await axiosInstance();
+export const update = async (updatedEventObject) => {
+  const { id, title, start, end, allDay, type, location } = updatedEventObject
+  const api = await axiosInstance()
   return api.patch("./events", {
     id,
     title,
     start,
     end,
     allDay,
-    type
-  });
-};
+    type,
+    location,
+  })
+}

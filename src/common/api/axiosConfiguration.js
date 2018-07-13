@@ -1,7 +1,7 @@
-import Axios from "axios";
+import Axios from "axios"
 
 export default () => {
   return Axios.create({
-    baseURL: "https://back2rc4.herokuapp.com"
-  });
-};
+    baseURL: process.env.REACT_APP_API,
+  })
+}
