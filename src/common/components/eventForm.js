@@ -20,7 +20,7 @@ const radioStyle = {
 class EventForm extends Component {
   componentDidMount = () => {
     this.props.form.validateFields()
-    document.title = this.pageHeader()
+    document.title = this.props.edit ? "Edit Event" : "Create New Event"
   }
 
   renderButtonText = (updating) => {
