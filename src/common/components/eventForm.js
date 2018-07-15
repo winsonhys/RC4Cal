@@ -36,13 +36,6 @@ class EventForm extends Component {
     return "Create Event"
   }
 
-  pageHeader = () => {
-    if (this.props.edit) {
-      return "Edit Event"
-    }
-    return "Create New Event"
-  }
-
   renderLocationPickerItems = () =>
     _.map(LOCATION, (location) => (
       <Option key={location} value={location}>
