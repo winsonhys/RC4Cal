@@ -14,6 +14,7 @@ BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 class MyCalendar extends Component {
   componentDidMount = () => {
     this.props.updateEvents(this.props.userId)
+    document.title = "Calendar Viewer"
   }
   eventsISOToDateConverter = (events) => {
     return _.map(events, (event) => {

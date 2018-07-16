@@ -1,4 +1,57 @@
-.start,
+.start {
+  text-align: center;
+}
 .end {
   text-align: center;
+}
+
+.eventTitle {
+  position: absolute;
+  top: 10%;
+}
+
+.allDay {
+  position: absolute;
+  top: 17%;
+  left: 1%;
+}
+
+.eventType {
+  position: absolute;
+  top: 25%;
+}
+
+.createButton {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+}
+
+.pageTitle {
+  text-align: center;
+  height: 10%;
+  width: 100%;
+}
+
+.chooseDateTime {
+  width: 60%;
+  height: 80%;
+  padding-left: 9%;
+  position: absolute;
+  top: 10%;
+  left: 0%;
+}
+
+.options {
+  width: 40%;
+  height: 80%;
+  position: absolute;
+  top: 10%;
+  left: 60%;
+}
+
+.deleteEvent {
+  position: absolute;
+  top: 28%;
+  left: 76%;
 }

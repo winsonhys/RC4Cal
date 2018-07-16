@@ -15,6 +15,7 @@ const isNotFilled = (fieldsError) => {
 class Login extends Component {
   componentDidMount = () => {
     this.props.form.validateFields() //disabled button at Start
+    document.title = "RC4Cal"
   }
 
   handleLogIn = async (username, password) => {

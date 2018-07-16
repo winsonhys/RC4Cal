@@ -40,6 +40,7 @@ class EditEvent extends Component {
           handleSubmit={this.handleEdit}
         />
         <Button
+          className="deleteEvent"
           onClick={() => {
             deleteEvent(id)
             history.goBack()
