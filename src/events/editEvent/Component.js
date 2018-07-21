@@ -1,12 +1,13 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
-import { Button, message, Modal } from "antd"
+import { Button, message, Modal, Radio } from "antd"
 import { getClashingEvents, canOverride } from "../../common/functions"
 import EventForm from "../../common/components/eventForm"
 class EditEvent extends Component {
   state = {
     swapModalVisible: false,
+    eventToSwapId: null,
   }
   handleEdit = async (fields) => {
     const { id } = this.props.history.location.state
@@ -31,14 +32,59 @@ class EditEvent extends Component {
       message.error("Cannot override as your event does not have priority")
     }
   }
-  handleSwap = () => {}
+
+  handleSwap = async (eventIdFrom, eventIdTo) => {
+    await this.props.requestSwap(eventIdFrom, eventIdTo)
+  }
+
+  renderNotMyEvents = () => {
+    const { userId } = this.props.history.location.state
+    const notMyEvents = _.filter(
+      this.props.events,
+      (event) => event.userId !== userId
+    )
+    return _.map(notMyEvents, (event) => {
+      return <Radio.Button value={event.id}>{event.title}</Radio.Button>
+    })
+  }
+
+  renderModalFooter = () => [
+    <Button
+      key="back"
+      onClick={() => this.setState({ swapModalVisible: false })}
+    >
+      Return
+    </Button>,
+    <Button
+      key="submit"
+      type="primary"
+      loading={this.props.sendingEmail}
+      onClick={() =>
+        this.handleSwap(
+          this.props.history.location.state.id,
+          this.state.eventToSwapId
+        )
+      }
+    >
+      Request Swap
+    </Button>,
+  ]
   renderModal = () => (
     <Modal
       title="Request a swap"
       visible={this.state.swapModalVisible}
       onOk={this.handleSwap}
       onCancel={() => this.setState({ swapModalVisible: false })}
-    />
+      footer={this.renderModalFooter()}
+    >
+      <Radio.Group
+        onChange={(event) => {
+          this.setState({ eventToSwapId: event.target.value })
+        }}
+      >
+        {this.renderNotMyEvents()}
+      </Radio.Group>
+    </Modal>
   )
   render() {
     const { history, deleteEvent, updating } = this.props
@@ -82,6 +128,8 @@ EditEvent.propTypes = {
   updating: PropTypes.bool.isRequired,
   editEvent: PropTypes.func.isRequired,
   events: PropTypes.array.isRequired,
+  requestSwap: PropTypes.func.isRequired,
+  sendingEmail: PropTypes.bool.isRequired,
 }
 
 export default EditEvent
