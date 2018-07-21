@@ -1,4 +1,5 @@
 /* global sessionStorage*/
+import _ from "lodash"
 import { get as getUserBackend } from "../common/api/users"
 
 export const GETTING_USER = "GETTING_USER"
@@ -20,7 +21,12 @@ export default (state = initialState, action) => {
       sessionStorage.setItem("token", action.payload.token)
       return {
         ...state,
-        token: action.payload.token,
+        token: _.pick(action.payload.token, [
+          "id",
+          "username",
+          "email",
+          "permissionLevel",
+        ]),
         user: action.payload.user,
         getting: false,
       }
@@ -36,9 +42,9 @@ export default (state = initialState, action) => {
 const gettingUser = () => ({
   type: GETTING_USER,
 })
-const gettingUserSuccess = (token) => ({
+const gettingUserSuccess = (tokenAndUser) => ({
   type: GETTING_USER_SUCCESS,
-  payload: token,
+  payload: tokenAndUser,
 })
 const gettingUserError = (error) => ({
   type: GETTING_USER_ERROR,

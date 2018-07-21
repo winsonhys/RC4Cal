@@ -52,6 +52,7 @@ class EventForm extends Component {
   render() {
     const { form, handleSubmit, updating, edit, eventObject } = this.props
     const { getFieldDecorator, getFieldsError, getFieldsValue } = form
+    //TODO: Change DateTimePicker to use AntD one
     return (
       <Form layout="inline" onSubmit={() => {}}>
         <div className="pageTitle">

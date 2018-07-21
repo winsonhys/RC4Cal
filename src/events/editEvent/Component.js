@@ -1,10 +1,13 @@
 import React, { Component } from "react"
 import PropTypes from "prop-types"
 import _ from "lodash"
-import { Button, message } from "antd"
+import { Button, message, Modal } from "antd"
 import { getClashingEvents, canOverride } from "../../common/functions"
 import EventForm from "../../common/components/eventForm"
 class EditEvent extends Component {
+  state = {
+    swapModalVisible: false,
+  }
   handleEdit = async (fields) => {
     const { id } = this.props.history.location.state
     const newEvent = _.pick(fields, [
@@ -28,6 +31,15 @@ class EditEvent extends Component {
       message.error("Cannot override as your event does not have priority")
     }
   }
+  handleSwap = () => {}
+  renderModal = () => (
+    <Modal
+      title="Request a swap"
+      visible={this.state.swapModalVisible}
+      onOk={this.handleSwap}
+      onCancel={() => this.setState({ swapModalVisible: false })}
+    />
+  )
   render() {
     const { history, deleteEvent, updating } = this.props
     const { id } = history.location.state
@@ -41,6 +53,7 @@ class EditEvent extends Component {
         />
         <Button
           className="deleteEvent"
+          type="primary"
           onClick={() => {
             deleteEvent(id)
             history.goBack()
@@ -48,6 +61,16 @@ class EditEvent extends Component {
         >
           Delete Event
         </Button>
+        <Button
+          className="swapEvent"
+          type="primary"
+          onClick={() => {
+            this.setState({ swapModalVisible: true })
+          }}
+        >
+          Swap Event
+        </Button>
+        {this.renderModal()}
       </div>
     )
   }
