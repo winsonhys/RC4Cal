@@ -77,6 +77,7 @@ class EditEvent extends Component {
       onCancel={() => this.setState({ swapModalVisible: false })}
       footer={this.renderModalFooter()}
     >
+      <p>Please choose one event to swap with</p>
       <Radio.Group
         onChange={(event) => {
           this.setState({ eventToSwapId: event.target.value })
