@@ -20,6 +20,13 @@ class Login extends Component {
 
   handleLogIn = async (username, password) => {
     await this.props.getUser(username, password)
+    const previousPage = _.get(
+      this.props.history.location.state,
+      "from.pathname"
+    )
+    if (previousPage) {
+      this.props.history.push(`${previousPage}`)
+    }
     this.props.history.push("/calendar")
   }
 
@@ -86,5 +93,19 @@ const WrappedLoginForm = Form.create()(Login)
 Login.propTypes = {
   loggingIn: PropTypes.bool.isRequired,
   getUser: PropTypes.func.isRequired,
+  form: PropTypes.shape({
+    getFieldDecorator: PropTypes.func.isRequired,
+    getFieldsError: PropTypes.func.isRequired,
+    getFieldsValue: PropTypes.func.isRequired,
+    isFieldTouched: PropTypes.func.isRequired,
+    getFieldError: PropTypes.func.isRequired,
+    validateFields: PropTypes.func.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.object.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 export default withRouter(WrappedLoginForm)
