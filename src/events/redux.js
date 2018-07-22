@@ -5,6 +5,7 @@ import {
   destroy as deleteUserEvent,
   update as updateUserEvent,
   requestSwap as requestSwapEmail,
+  eventSwap as eventSwapApi,
 } from "../common/api/events"
 export const UPDATING_EVENTS = "UPDATING_EVENTS"
 export const UPDATING_EVENTS_SUCCESS = "UPDATING_EVENTS_SUCCESS"
@@ -21,6 +22,9 @@ export const EDITING_EVENT_ERROR = "EDITING_EVENT_ERROR"
 export const REQUESTING_SWAP = "REQUESTING_SWAP"
 export const REQUESTING_SWAP_SUCCESS = "REQUESTING_SWAP_SUCCESS"
 export const REQUESTING_SWAP_ERROR = "REQUESTING_SWAP_ERROR"
+export const EVENT_SWAPPING = "EVENT_SWAPPING"
+export const EVENT_SWAPPING_SUCCESS = "EVENT_SWAPPING_SUCCESS"
+export const EVENT_SWAPPING_ERROR = "EVENT_SWAPPING_ERROR"
 
 const initialState = {
   events: [],
@@ -160,6 +164,20 @@ const requestingSwapError = (error) => ({
   error,
 })
 
+const eventSwapping = () => ({
+  type: EVENT_SWAPPING,
+})
+
+const eventSwappingSuccess = () => ({
+  //API has a payload, just that I never use. Consider using.
+  type: EVENT_SWAPPING_SUCCESS,
+})
+
+const eventSwappingError = (error) => ({
+  type: EVENT_SWAPPING_ERROR,
+  error,
+})
+
 export const requestSwap = (eventIdFrom, eventIdTo) => {
   return async (dispatch) => {
     dispatch(requestingSwap())
@@ -168,6 +186,17 @@ export const requestSwap = (eventIdFrom, eventIdTo) => {
       dispatch(requestingSwapSuccess())
     } catch (e) {
       dispatch(requestingSwapError(e))
+    }
+  }
+}
+export const eventSwap = (eventIdFrom, eventIdTo) => {
+  return async (dispatch) => {
+    dispatch(eventSwapping())
+    try {
+      await eventSwapApi(eventIdFrom, eventIdTo)
+      dispatch(eventSwappingSuccess())
+    } catch (e) {
+      dispatch(eventSwappingError(e))
     }
   }
 }

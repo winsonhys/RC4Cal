@@ -44,7 +44,11 @@ class EditEvent extends Component {
       (event) => event.userId !== userId
     )
     return _.map(notMyEvents, (event) => {
-      return <Radio.Button value={event.id}>{event.title}</Radio.Button>
+      return (
+        <Radio.Button key={event.id} value={event.id}>
+          {event.title}
+        </Radio.Button>
+      )
     })
   }
 

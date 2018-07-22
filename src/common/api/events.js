@@ -61,3 +61,8 @@ export const requestSwap = async (eventIdFrom, eventIdTo) => {
   const api = await axiosInstance()
   return api.post("./events/swapRequest", { eventIdFrom, eventIdTo })
 }
+
+export const eventSwap = async (eventIdFrom, eventIdTo) => {
+  const api = await axiosInstance()
+  return api.post("./events/eventSwap", { eventIdFrom, eventIdTo })
+}
