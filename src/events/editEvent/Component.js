@@ -35,6 +35,8 @@ class EditEvent extends Component {
 
   handleSwap = async (eventIdFrom, eventIdTo) => {
     await this.props.requestSwap(eventIdFrom, eventIdTo)
+    this.setState({ swapModalVisible: false })
+    message.success("Your event has been successfully requested for a swap")
   }
 
   renderNotMyEvents = () => {
