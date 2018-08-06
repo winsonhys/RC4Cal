@@ -8,7 +8,7 @@ export default class SuccessfulSwap extends React.Component {
   }
   componentDidMount = async () => {
     const eventIds = this.obtainEventIdFromAndToObject()
-    await eventSwap(eventIds.eventIdFrom, eventIds.eventIdTo)
+    await eventSwap(eventIds.eventFromId, eventIds.eventToId)
   }
   render() {
     return (
