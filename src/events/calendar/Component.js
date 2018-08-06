@@ -37,11 +37,23 @@ class MyCalendar extends Component {
             history.push("/new", { ...slotInfo, userId })
           }}
           onSelectEvent={(slotInfo) => {
-            history.push("/edit", { ...slotInfo })
+            if (slotInfo.userId === this.props.userId) {
+              history.push("/edit", { ...slotInfo })
+            }
           }}
           events={this.eventsISOToDateConverter(events)}
           defaultDate={moment().toDate()}
           style={{ height: "100vh" }}
+          eventPropGetter={(event) => {
+            if (event.userId === this.props.userId) {
+              return {
+                style: {
+                  backgroundColor: "#ffa39e",
+                },
+              }
+            }
+            return { style: null }
+          }}
         />
       </div>
     )

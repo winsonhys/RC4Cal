@@ -5,24 +5,23 @@ import { Route, Redirect } from "react-router-dom"
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={(props) =>
-      sessionStorage.getItem("token") ? (
+    render={(props) => {
+      return sessionStorage.getItem("token") ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
             pathname: "/",
-            state: { from: props.location },
+            state: { from: props.location }, // Need to find a way to set propType validation for this.
           }}
         />
       )
-    }
+    }}
   />
 )
 
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
-  location: PropTypes.object.isRequired,
 }
 
 export default PrivateRoute
