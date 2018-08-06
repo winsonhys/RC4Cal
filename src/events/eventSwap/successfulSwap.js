@@ -1,19 +1,10 @@
 import React from "react"
-import PropTypes from "prop-types"
-import URL from "url"
+import queryString from "query-string"
 import { eventSwap } from "../../common/api/events"
 
 export default class SuccessfulSwap extends React.Component {
   obtainEventIdFromAndToObject = () => {
-    const eventIds = URL.parse(window.location.href).query
-    const splitQueries = eventIds.split("&")
-    const eventIdFromArray = splitQueries[0].split("eventIdFrom=")
-    const eventIdToArray = splitQueries[1].split("eventIdTo=")
-    console.log(eventIdToArray)
-    return {
-      eventIdFrom: eventIdFromArray[1],
-      eventIdTo: eventIdToArray[1],
-    }
+    return queryString.parse(queryString.extract(window.location.href))
   }
   componentDidMount = async () => {
     const eventIds = this.obtainEventIdFromAndToObject()
@@ -27,5 +18,3 @@ export default class SuccessfulSwap extends React.Component {
     )
   }
 }
-
-SuccessfulSwap.propTypes = {}
